@@ -23,28 +23,39 @@ namespace EvolutionaryComputation.Models
             }
         }
         public string dna { get; set; }
-        public int str2Int()
+        public double fitness
         {
-            int i, ak = 0, pow2 = 1 << (dna.Length - 1);
-            for (i = 1; i < dna.Length; i++)
+            get
             {
-                if (dna[i] == '1') ak += pow2;
-                pow2 /= 2;
+                double x = geno2Pheno;
+                return Core.function(x);
             }
-            return ak;
         }
 
-        public double geno2Pheno()
+        public int str2Int
         {
-            int ak = this.str2Int();
-            return ak/(Math.Pow(2, dna.Length)-1)* Math.PI * 1d;
+            get        
+            {
+                int i, ak = 0, pow2 = 1 << (dna.Length - 1);
+                for (i = 1; i < dna.Length; i++)
+                {
+                    if (dna[i] == '1') ak += pow2;
+                    pow2 /= 2;
+                }
+                return ak;
+            }
         }
 
-        public double fitness()
+        public double geno2Pheno
         {
-            double x = geno2Pheno();
-            return Core.function(x);
+            get        
+            {
+                int ak = this.str2Int;
+                return (double)ak/(Math.Pow(2, dna.Length)-1)* Math.PI * 1d;
+            }
         }
+
+        
 
         
 

@@ -8,14 +8,18 @@
         xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit" 
         x:Class="EvolutionaryComputation.Windows.MainWindow"
         mc:Ignorable="d"
-        Title="Evolutionary Computation" Height="520.06" Width="900.523" WindowState="Maximized" >
+        Title="Evolutionary Computation" Height="520.06" Width="916.841" WindowState="Maximized" >
 
     <Grid x:Name="MainGrid" Margin="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="8*"/>
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
-        <chartingToolkit:Chart  Name="lineChart" Margin="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <chartingToolkit:Chart  Name="lineChart" Margin="0" Grid.ColumnSpan="3">
 
             <chartingToolkit:LineSeries  DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding fitnessFunction}" DataContext="{Binding}" IsSelectionEnabled="False" Title="Fitness function">
                 <chartingToolkit:LineSeries.DataPointStyle>
@@ -29,20 +33,24 @@
 
             </chartingToolkit:ScatterSeries>
         </chartingToolkit:Chart>
-        <GroupBox x:Name="groupBoxInitialize" Header="Initialization" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="143" Width="275">
+        <GroupBox x:Name="groupBoxInitialize" Header="Initialization" Margin="10,10,0,0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="143" Width="344">
             <Canvas Margin="0">
                 <TextBox x:Name="textBoxPopulation" HorizontalAlignment="Left" Height="23" Margin="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" Text="20" TextAlignment="Right" Canvas.Left="80" Canvas.Top="35"/>
                 <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Bits:" VerticalAlignment="Top" Canvas.Left="5" Canvas.Top="5"/>
-                <TextBox x:Name="textBoxMutation" HorizontalAlignment="Left" Height="23" Margin="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" Text="0,01" TextAlignment="Right" Canvas.Left="80" Canvas.Top="65"/>
+                <TextBox x:Name="textBoxMutation" HorizontalAlignment="Left" Height="23" Margin="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" Text="0.01" TextAlignment="Right" Canvas.Left="80" Canvas.Top="65"/>
                 <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Mutation:" VerticalAlignment="Top" Canvas.Left="5" Canvas.Top="65"/>
-                <TextBox x:Name="textBoxNoCrossover" HorizontalAlignment="Left" Height="23" Margin="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" Text="0,1" TextAlignment="Right" Canvas.Left="80" Canvas.Top="95"/>
+                <TextBox x:Name="textBoxNoCrossover" HorizontalAlignment="Left" Height="23" Margin="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" Text="0.1" TextAlignment="Right" Canvas.Left="80" Canvas.Top="95"/>
                 <TextBlock x:Name="textBlock_Copy2" HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="NoCrossover:" VerticalAlignment="Top" Canvas.Left="5" Canvas.Top="95"/>
                 <TextBox x:Name="textBoxBits" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" Text="15" TextAlignment="Right" Canvas.Left="80" Canvas.Top="5" Margin="0"/>
                 <TextBlock x:Name="textBlock" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Population:" VerticalAlignment="Top" Canvas.Left="5" Canvas.Top="35"/>
-                <Button x:Name="buttonInitialize" Content="Initialize" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="buttonInitialize_Click" Canvas.Left="178" Canvas.Top="10"/>
+                <Button x:Name="buttonInitialize" Content="Initialize" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="buttonInitialize_Click" Canvas.Left="250" Canvas.Top="10"/>
+                <TextBox x:Name="textBoxParameterA" HorizontalAlignment="Left" Height="23" Margin="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" Text="5" TextAlignment="Right" Canvas.Left="253" Canvas.Top="65"/>
+                <TextBlock x:Name="textBlock_Copy5" HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Parameter a:" VerticalAlignment="Top" Canvas.Left="178" Canvas.Top="65"/>
+                <TextBox x:Name="textBoxParameterB" HorizontalAlignment="Left" Height="23" Margin="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" Text="1" TextAlignment="Right" Canvas.Left="253" Canvas.Top="95"/>
+                <TextBlock x:Name="textBlock_Copy6" HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Parameter b:" VerticalAlignment="Top" Canvas.Left="178" Canvas.Top="95"/>
             </Canvas>
         </GroupBox>
-        <GroupBox x:Name="groupBoxNext" Header="Generations" HorizontalAlignment="Left" Margin="292,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="143" Width="171">
+        <GroupBox x:Name="groupBoxNext" Header="Generations" HorizontalAlignment="Left" Margin="359,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="143" Width="171">
             <Canvas Margin="0">
                 <Button x:Name="buttonNext" Content="Next" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="buttonNext_Click" Canvas.Left="80" Canvas.Top="69"/>
                 <TextBox x:Name="textBoxSteps" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" Text="1" TextAlignment="Right" Margin="0" Canvas.Left="80" Canvas.Top="5"/>
@@ -51,7 +59,7 @@
                 <TextBlock x:Name="textBlock_Copy4" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Generations:" VerticalAlignment="Top" Margin="0" Canvas.Left="5" Canvas.Top="35"/>
             </Canvas>
         </GroupBox>
-        <ListBox x:Name="listBoxPopulation" ItemsSource="{Binding consolePopulation}" HorizontalAlignment="Left" Height="143" Margin="468,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="390">
+        <ListBox x:Name="listBoxPopulation" ItemsSource="{Binding consolePopulation}" Margin="10,10,10,0" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Height="143">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Path=Value}"/>

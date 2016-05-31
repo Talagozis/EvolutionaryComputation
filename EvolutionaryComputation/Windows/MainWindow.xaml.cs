@@ -26,11 +26,7 @@ namespace EvolutionaryComputation.Windows
         {
             InitializeComponent();
 
-            core = new Core();
-
-            
-
-            Debug.WriteLine(this.DataContext);
+            core = new Core();            
         }
 
         private void buttonInitialize_Click(object sender, RoutedEventArgs e)
@@ -41,9 +37,12 @@ namespace EvolutionaryComputation.Windows
             int bits = int.Parse(textBoxBits.Text);
             double mutation = double.Parse(textBoxMutation.Text);
             double noCrossover = double.Parse(textBoxNoCrossover.Text);
-            var parents = this.core.Initialize(numberOfPopulation, bits, mutation, noCrossover);
+            double parameterA = double.Parse(textBoxParameterA.Text);
+            double parameterB = double.Parse(textBoxParameterB.Text);
+            var parents = this.core.Initialize(numberOfPopulation, bits, mutation, noCrossover, parameterA, parameterB);
             this.DataContext = core;
             this.textBoxGenerations.Text = this.core.generations.ToString();
+
             Cursor = Cursors.Arrow;
         }
 
@@ -52,7 +51,6 @@ namespace EvolutionaryComputation.Windows
             Cursor = Cursors.Wait;
 
             int steps = int.Parse(textBoxSteps.Text);
-
             this.core.Next(steps);
 
             this.textBoxGenerations.Text = this.core.generations.ToString();

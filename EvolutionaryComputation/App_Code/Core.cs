@@ -25,12 +25,14 @@ namespace EvolutionaryComputation.App_Code
         }
         public static double function(double x)
         {
-            return Math.Pow(Math.Abs(Math.Sin(x) * Math.Sin(7 * x)), 1);
+            return Math.Pow(Math.Abs(Math.Sin(x) * Math.Sin(parameterA * x)), parameterB);
         }
         public int numberOfPopulation { get; set; }
         public int bits { get; set; }
         public double mutation { get; set; }
         public double noCrossover { get; set; }
+        public static double parameterA { get; set; }
+        public static double parameterB { get; set; }
         private List<Person> parents = new List<Person>();
         private List<Person> children = new List<Person>();
 
@@ -41,14 +43,14 @@ namespace EvolutionaryComputation.App_Code
             this.consolePopulation = new ObservableCollection<KeyValuePair<double, string>>();
         }
 
-        public List<Person> Initialize(int numberOfPopulation, int bits, double mutation, double noCrossover)
+        public List<Person> Initialize(int numberOfPopulation, int bits, double mutation, double noCrossover, double parameterA, double parameterB)
         {
-            initializeGraph();
-
             this.numberOfPopulation = numberOfPopulation;
             this.bits = bits;
             this.mutation = mutation;
             this.noCrossover = noCrossover;
+            Core.parameterA = parameterA;
+            Core.parameterB = parameterB;
 
             this.generations = 0;
 
@@ -58,6 +60,7 @@ namespace EvolutionaryComputation.App_Code
                 parents.Add(new Person(bits));
             }
 
+            initializeGraph();
             showPopulation();
 
             return parents;
@@ -93,6 +96,15 @@ namespace EvolutionaryComputation.App_Code
                     children.Add(child);
                 }
 
+                //if (parents.Max(a => a.fitness) > children.Max(a => a.fitness))
+                //{
+                //    var pMax = parents.Max(a => a.fitness);
+                //    var cMax = parents.Max(a => a.fitness);
+
+
+                //    var x = 0;
+                //}
+
                 parents = children;
             }
 
@@ -105,19 +117,19 @@ namespace EvolutionaryComputation.App_Code
 
         private Person FindBest()
         {
-            double best = parents.Max(a => a.fitness());
-            return parents.FirstOrDefault(a => a.fitness() == best);
+            double best = parents.Max(a => a.fitness);
+            return parents.FirstOrDefault(a => a.fitness == best);
         }
 
         private Person Roulette()
         {
-            double sum = parents.Sum(a => a.fitness());
+            double sum = parents.Sum(a => a.fitness);
             double sumrnd = rnd * sum;
 
             int i;
             for (i = 0; i < numberOfPopulation; i++)
             {
-                sumrnd -= parents[i].fitness();
+                sumrnd -= parents[i].fitness;
                 if (sumrnd < 0)
                     break;
             }
@@ -165,12 +177,12 @@ namespace EvolutionaryComputation.App_Code
         {
             chartPopulation.Clear();
             consolePopulation.Clear();
-            foreach (Person person in parents.OrderByDescending(a => a.fitness()).ThenByDescending(a => a.geno2Pheno()))
+            foreach (Person person in parents.OrderByDescending(a => a.fitness))
             {
-                chartPopulation.Add(new KeyValuePair<double, double>(person.geno2Pheno(), person.fitness()));
+                chartPopulation.Add(new KeyValuePair<double, double>(person.geno2Pheno, person.fitness));
 
-                string description = person.dna + " - " + person.geno2Pheno().ToString("N5") + " - " + person.fitness().ToString("N5");
-                consolePopulation.Add(new KeyValuePair<double, string>(person.fitness(), description));
+                string description = person.dna + " - " + person.geno2Pheno.ToString("N20") + " - " + person.fitness.ToString("N20");
+                consolePopulation.Add(new KeyValuePair<double, string>(person.fitness, description));
                 Debug.WriteLine(description);
             }
         }
@@ -188,4 +200,5 @@ namespace EvolutionaryComputation.App_Code
 
         
     }
+
 }
