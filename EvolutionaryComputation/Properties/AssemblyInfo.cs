@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyTitle("EvolutionaryComputation")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Talagozis")]
 [assembly: AssemblyProduct("EvolutionaryComputation")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
